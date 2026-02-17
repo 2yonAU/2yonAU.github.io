@@ -1,12 +1,436 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>It works</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Daniel Lyon — Software & IT Consulting</title>
+  <meta name="description" content="Software development and IT consulting — automation, web systems, infrastructure, and troubleshooting. Melbourne, Australia (remote available)." />
+
+  <style>
+    :root{
+      --bg: #0b0f17;
+      --panel: rgba(255,255,255,.06);
+      --panel-2: rgba(255,255,255,.04);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.68);
+      --border: rgba(255,255,255,.12);
+      --shadow: 0 18px 45px rgba(0,0,0,.45);
+      --radius: 18px;
+      --max: 1100px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color: var(--text);
+      background:
+        radial-gradient(900px 500px at 10% 10%, rgba(120,170,255,.25), transparent 60%),
+        radial-gradient(900px 500px at 90% 20%, rgba(170,120,255,.18), transparent 60%),
+        radial-gradient(900px 500px at 50% 100%, rgba(120,255,200,.12), transparent 60%),
+        var(--bg);
+      line-height: 1.5;
+    }
+
+    a{ color: inherit; text-decoration: none; }
+    a:hover{ text-decoration: underline; }
+
+    .wrap{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 28px 18px 40px;
+    }
+
+    header{
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 16px;
+      padding: 10px 2px 22px;
+    }
+
+    .brand{
+      display: grid;
+      gap: 4px;
+    }
+
+    .brand strong{
+      font-size: 16px;
+      letter-spacing: .2px;
+    }
+
+    .brand span{
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .nav{
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .nav a{
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+    .nav a:hover{
+      border-color: var(--border);
+      background: rgba(255,255,255,.03);
+      text-decoration: none;
+    }
+
+    .hero{
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 18px;
+      align-items: stretch;
+      margin-top: 8px;
+    }
+
+    .card{
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .card-inner{
+      padding: 22px;
+    }
+
+    h1{
+      margin: 0 0 10px;
+      font-size: clamp(28px, 3.4vw, 44px);
+      letter-spacing: -.6px;
+      line-height: 1.1;
+    }
+
+    .lead{
+      margin: 0 0 16px;
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 60ch;
+    }
+
+    .chips{
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 12px 0 18px;
+    }
+
+    .chip{
+      font-size: 13px;
+      color: rgba(255,255,255,.78);
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--border);
+      padding: 7px 10px;
+      border-radius: 999px;
+    }
+
+    .cta{
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 12px;
+    }
+
+    .btn{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 11px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .btn:hover{ background: rgba(255,255,255,.09); text-decoration: none; }
+
+    .btn.primary{
+      background: rgba(120,170,255,.22);
+      border-color: rgba(120,170,255,.35);
+    }
+    .btn.primary:hover{
+      background: rgba(120,170,255,.28);
+    }
+
+    .side{
+      display: grid;
+      gap: 14px;
+      height: 100%;
+    }
+
+    .mini{
+      background: var(--panel-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 18px 16px;
+    }
+
+    .mini h3{
+      margin: 0 0 8px;
+      font-size: 14px;
+      letter-spacing: .2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.80);
+    }
+
+    ul{
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    li{ margin: 6px 0; }
+
+    .grid{
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .col-6{ grid-column: span 6; }
+    .col-4{ grid-column: span 4; }
+    .col-12{ grid-column: span 12; }
+
+    .section-title{
+      margin: 0 0 10px;
+      font-size: 16px;
+      letter-spacing: .2px;
+    }
+
+    .muted{ color: var(--muted); }
+
+    .service{
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      height: 100%;
+    }
+    .service strong{
+      display: block;
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+    .service p{
+      margin: 0;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    footer{
+      margin-top: 22px;
+      padding: 18px 6px 0;
+      color: rgba(255,255,255,.55);
+      font-size: 13px;
+      display: grid;
+      gap: 8px;
+      border-top: 1px solid rgba(255,255,255,.10);
+    }
+
+    .foot-row{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .smalllinks{
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* Responsive */
+    @media (max-width: 860px){
+      .hero{ grid-template-columns: 1fr; }
+      .nav{ justify-content: flex-start; }
+      .col-6{ grid-column: span 12; }
+      .col-4{ grid-column: span 12; }
+    }
+  </style>
 </head>
+
 <body>
-  <h1>GitHub Pages is live</h1>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <strong>Daniel Lyon</strong>
+        <span>Software Development & IT Consulting</span>
+      </div>
+      <nav class="nav" aria-label="Site">
+        <a href="#services">Services</a>
+        <a href="#process">How I work</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <section class="hero" id="top">
+      <div class="card">
+        <div class="card-inner">
+          <h1>Practical software and IT help, without the drama.</h1>
+          <p class="lead">
+            I help individuals and small organisations build, fix, and simplify their tech — from automation and web systems
+            to infrastructure, troubleshooting, and documentation.
+          </p>
+
+          <div class="chips" aria-label="Focus areas">
+            <span class="chip">Web apps</span>
+            <span class="chip">Automation</span>
+            <span class="chip">Servers & Linux</span>
+            <span class="chip">Networking</span>
+            <span class="chip">Data & integrations</span>
+          </div>
+
+          <div class="cta" id="contact">
+            <a class="btn primary" href="mailto:daniel@2yon.com.au?subject=Consulting%20enquiry">Email me</a>
+            <a class="btn" href="#services">See services</a>
+          </div>
+
+          <p class="muted" style="margin: 14px 0 0; font-size: 13px;">
+            Based in Australia. Remote-friendly.
+          </p>
+        </div>
+      </div>
+
+      <div class="side">
+        <div class="mini">
+          <h3>Good fit for</h3>
+          <ul>
+            <li>“We need this working today.”</li>
+            <li>Small builds that must be clean and maintainable.</li>
+            <li>Untangling messy systems and documenting them.</li>
+          </ul>
+        </div>
+
+        <div class="mini" id="process">
+          <h3>How I work</h3>
+          <ul>
+            <li>Quick scoping call/email → clear plan.</li>
+            <li>Short feedback loops (no week-long black boxes).</li>
+            <li>Handover notes so you’re not stuck with me forever.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid" id="services" aria-label="Services">
+      <div class="col-12">
+        <h2 class="section-title">Services</h2>
+        <p class="muted" style="margin: 0 0 12px;">
+          Pick one problem or a small bundle. If it’s bigger, we break it into milestones.
+        </p>
+      </div>
+
+      <div class="col-4">
+        <div class="service">
+          <strong>Software development</strong>
+          <p>Small web tools, internal dashboards, MVPs, bug fixes, refactors, and “make it sane again” work.</p>
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div class="service">
+          <strong>Infrastructure & self-hosting</strong>
+          <p>Linux servers, Docker, reverse proxies, backups, monitoring, and cost-conscious hosting setups.</p>
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div class="service">
+          <strong>Automation & integrations</strong>
+          <p>Scripts, API glue, data cleanup, and workflows that remove repetitive manual work.</p>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="service">
+          <strong>Troubleshooting & performance</strong>
+          <p>Networking weirdness, DNS/HTTPS issues, flaky deployments, slow pages, or systems that “just stopped”.</p>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="service">
+          <strong>Documentation & handover</strong>
+          <p>Setup guides, runbooks, diagrams, and clean “here’s how it works” notes for future-you (or your team).</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid" aria-label="Capabilities">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-inner">
+            <h2 class="section-title">Capabilities</h2>
+            <p class="muted" style="margin: 0 0 10px;">
+              A few typical tools/areas. If yours isn’t listed, it’s still worth asking.
+            </p>
+
+            <div class="grid" style="margin-top: 10px;">
+              <div class="col-6">
+                <div class="service">
+                  <strong>Web</strong>
+                  <p>PHP / JS, REST APIs, auth, CRUD apps, small front-ends, static sites.</p>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="service">
+                  <strong>Ops</strong>
+                  <p>Linux, Docker, Nginx/Proxy Manager, DNS, SSL, basic security hardening.</p>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="service">
+                  <strong>Style</strong>
+                  <p>Clean code, pragmatic solutions, and a bias toward “easy to run and easy to hand over”.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="cta" style="margin-top: 14px;">
+              <a class="btn primary" href="mailto:daniel@2yon.com.au?subject=Consulting%20enquiry&body=Hi%20Daniel%2C%0A%0AI%20need%20help%20with%3A%20...%0A%0ATimeline%3A%20...%0ABudget%3A%20...%0A%0AThanks%2C">Start an enquiry</a>
+              <a class="btn" href="#top">Back to top</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="foot-row">
+        <div class="smalllinks">
+          <a href="mailto:daniel@2yon.com.au">daniel@2yon.com.au</a>
+          <span aria-hidden="true">•</span>
+          <span>ABN 50 298 673 440</span>
+        </div>
+        <div class="smalllinks">
+          <a href="https://github.com/2yonau" rel="noopener">GitHub</a>
+        </div>
+      </div>
+      <div class="muted">
+        © <span id="year"></span> Daniel Lyon. All rights reserved.
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
-  <footer><a href="mailto:daniel@2yon.com.au">Daniel Lyon</a> | ABN 50298673440</footer>
 </html>
